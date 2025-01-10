@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="LA Appliance Repair - Professional Repair Services in Los Angeles">
+	<main>
+		<h1>Professional <span class="text-gradient">Appliance Repair</span> in Los Angeles</h1>
+		<p class="tagline">
+			Expert repair services for residential and commercial appliances with same-day service
+		</p>
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/residential"
+				title="Residential Services"
+				body="Repair services for home appliances: refrigerators, washers, dryers, dishwashers, and more."
+			/>
+			<Card
+				href="/commercial"
+				title="Commercial Services"
+				body="Professional repair solutions for restaurants, hotels, and businesses."
+			/>
+			<Card
+				href="/service-areas"
+				title="Service Areas"
+				body="Serving Los Angeles and surrounding areas with quick response times."
+			/>
+			<Card
+				href="/contact"
+				title="24/7 Support"
+				body="Call us now for emergency repairs and same-day service."
+			/>
+		</ul>
+
+		<section class="features">
+			<h2>Why Choose Us</h2>
+			<div class="features-grid">
+				<div class="feature">
+					<h3>✓ Licensed & Insured</h3>
+					<p>Fully certified technicians you can trust</p>
+				</div>
+				<div class="feature">
+					<h3>✓ Same Day Service</h3>
+					<p>Quick response for emergency repairs</p>
+				</div>
+				<div class="feature">
+					<h3>✓ Fair Pricing</h3>
+					<p>Transparent pricing with no hidden fees</p>
+				</div>
+				<div class="feature">
+					<h3>✓ Warranty</h3>
+					<p>All repairs backed by our service warranty</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 700;
+		line-height: 1.2;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+	.tagline {
+		text-align: center;
+		font-size: 1.5rem;
+		margin-bottom: 3rem;
+		color: rgb(var(--accent-light));
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+		margin-bottom: 4rem;
+	}
+	.features {
+		padding: 2rem 0;
+	}
+	.features h2 {
+		text-align: center;
+		font-size: 2rem;
+		margin-bottom: 2rem;
+		color: rgb(var(--accent-light));
+	}
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 2rem;
+	}
+	.feature {
+		background: rgba(var(--accent-dark), 0.2);
+		padding: 1.5rem;
+		border-radius: 8px;
+		border: 1px solid rgba(var(--accent-light), 0.2);
+	}
+	.feature h3 {
+		color: rgb(var(--accent-light));
+		margin-bottom: 0.5rem;
+		font-size: 1.2rem;
+	}
+	.feature p {
+		font-size: 0.9rem;
+		opacity: 0.9;
+	}
+</style>

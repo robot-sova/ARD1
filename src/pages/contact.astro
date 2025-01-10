@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm';
+---
+
+<Layout title="Contact Us - LA Appliance Repair">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8">Contact Us</h1>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-2xl font-semibold mb-4 text-accent-light">Get in Touch</h2>
+        <p class="mb-6">Need appliance repair services? Fill out the form and we'll get back to you as soon as possible.</p>
+        
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-xl font-medium mb-2 text-accent-light">Phone</h3>
+            <p>📞 (123) 456-7890</p>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-medium mb-2 text-accent-light">Email</h3>
+            <p>📧 info@laappliancerepair.com</p>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-medium mb-2 text-accent-light">Hours</h3>
+            <p>24/7 Emergency Service Available</p>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <ContactForm client:load />
+      </div>
+    </div>
+  </main>
+</Layout>

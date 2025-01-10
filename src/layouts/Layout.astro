@@ -1,0 +1,72 @@
+---
+import '../styles/base.css';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import MegaMenu from '../components/MegaMenu.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Professional appliance repair services in Los Angeles. Expert repairs for residential and commercial appliances with same-day service." />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-[#13151a] text-white min-h-screen flex flex-col">
+		<header class="sticky top-0 z-50 bg-accent-dark/95">
+			<div class="bg-[#e65c1c] text-white text-center py-2">
+				Promo Code Today: Book Online and Save $35
+			</div>
+			<nav class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
+				<div class="text-2xl font-bold">LA Appliance Repair</div>
+				<div class="flex gap-8 relative">
+					<a href="/" class="font-medium hover:text-accent-light">Home</a>
+					<a href="/services" class="font-medium hover:text-accent-light">Services</a>
+					<div class="brands-menu relative">
+						<a href="/brands" class="font-medium hover:text-accent-light">Brands</a>
+						<MegaMenu />
+					</div>
+					<a href="/about" class="font-medium hover:text-accent-light">About</a>
+					<a href="/contact" class="font-medium hover:text-accent-light">Contact</a>
+				</div>
+				<div>
+					<a href="tel:+1234567890" class="text-accent-light font-bold">📞 (123) 456-7890</a>
+				</div>
+			</nav>
+		</header>
+
+		<Breadcrumbs />
+
+		<slot />
+
+		<footer class="bg-accent-dark/95 text-white py-12 mt-auto">
+			<div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div>
+					<h3 class="text-accent-light text-xl font-semibold mb-4">Contact Us</h3>
+					<p>📞 (123) 456-7890</p>
+					<p>📧 info@laappliancerepair.com</p>
+				</div>
+				<div>
+					<h3 class="text-accent-light text-xl font-semibold mb-4">Service Hours</h3>
+					<p>Monday - Sunday: 24/7</p>
+					<p>Emergency Service Available</p>
+				</div>
+				<div>
+					<h3 class="text-accent-light text-xl font-semibold mb-4">Service Area</h3>
+					<p>Los Angeles and surrounding areas</p>
+				</div>
+			</div>
+			<div class="text-center mt-8 pt-4 border-t border-white/10">
+				<p>&copy; 2024 LA Appliance Repair. All rights reserved.</p>
+			</div>
+		</footer>
+	</body>
+</html>
