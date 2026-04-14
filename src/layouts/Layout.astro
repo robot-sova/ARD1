@@ -1,72 +1,98 @@
 ---
 import '../styles/base.css';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import MegaMenu from '../components/MegaMenu.astro';
 
 interface Props {
-	title: string;
+	title?: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const {
+	title = 'Same Day Appliance Repair Los Angeles | (949) 989-4980',
+	description = 'Professional appliance repair in Los Angeles. Same-day service for refrigerators, washers, dryers, dishwashers, ovens & microwaves. Licensed, insured, warrantied. Call (949) 989-4980.'
+} = Astro.props;
+
+const phone = '(949) 989-4980';
+const phoneHref = 'tel:+19499894980';
+const businessName = 'Same Day Appliance Repair';
+const siteUrl = 'https://appliancerepairdaily.com';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Professional appliance repair services in Los Angeles. Expert repairs for residential and commercial appliances with same-day service." />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={siteUrl} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:site_name" content={businessName} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
 		<title>{title}</title>
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "LocalBusiness",
+			"@id": siteUrl + "#business",
+			"name": businessName,
+			"image": siteUrl + "/favicon.svg",
+			"url": siteUrl,
+			"telephone": "+19499894980",
+			"priceRange": "$$",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Los Angeles",
+				"addressRegion": "CA",
+				"addressCountry": "US"
+			},
+			"areaServed": [
+				"Los Angeles", "Santa Monica", "Beverly Hills", "Pasadena", "Burbank", "Glendale", "Long Beach"
+			],
+			"openingHoursSpecification": [{
+				"@type": "OpeningHoursSpecification",
+				"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+				"opens": "07:00",
+				"closes": "21:00"
+			}],
+			"sameAs": []
+		})} />
+
 		<script src="https://analytics.ahrefs.com/analytics.js" data-key="s7QI57LsrItr4I9CZh+Vgw" async></script>
 	</head>
 	<body class="bg-[#13151a] text-white min-h-screen flex flex-col">
-		<header class="sticky top-0 z-50 bg-accent-dark/95">
-			<div class="bg-[#e65c1c] text-white text-center py-2">
-				Promo Code Today: Book Online and Save $35
+		<header class="sticky top-0 z-50 bg-[#1a1d26]/95 backdrop-blur border-b border-purple-500/20">
+			<div class="bg-[#7c3aed] text-white text-center py-2 text-sm font-medium">
+				⚡ Same-Day Service Available · Book Online & Save $35
 			</div>
-			<nav class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
-				<div class="text-2xl font-bold">LA Appliance Repair</div>
-				<div class="flex gap-8 relative">
-					<a href="/" class="font-medium hover:text-accent-light">Home</a>
-					<a href="/services" class="font-medium hover:text-accent-light">Services</a>
-					<div class="brands-menu relative">
-						<a href="/brands" class="font-medium hover:text-accent-light">Brands</a>
-						<MegaMenu />
-					</div>
-					<a href="/about" class="font-medium hover:text-accent-light">About</a>
-					<a href="/contact" class="font-medium hover:text-accent-light">Contact</a>
-				</div>
-				<div>
-					<a href="tel:+1234567890" class="text-accent-light font-bold">📞 (123) 456-7890</a>
-				</div>
+			<nav class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4 gap-4">
+				<a href="/" class="text-xl md:text-2xl font-bold">
+					<span class="text-white">Same Day</span>
+					<span class="text-purple-400">Appliance Repair</span>
+				</a>
+				<a href={phoneHref} class="bg-purple-600 hover:bg-purple-500 transition px-4 py-2 rounded-lg font-bold text-white whitespace-nowrap">
+					📞 {phone}
+				</a>
 			</nav>
 		</header>
 
-		<Breadcrumbs />
-
 		<slot />
 
-		<footer class="bg-accent-dark/95 text-white py-12 mt-auto">
-			<div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-				<div>
-					<h3 class="text-accent-light text-xl font-semibold mb-4">Contact Us</h3>
-					<p>📞 (123) 456-7890</p>
-					<p>📧 info@laappliancerepair.com</p>
-				</div>
-				<div>
-					<h3 class="text-accent-light text-xl font-semibold mb-4">Service Hours</h3>
-					<p>Monday - Sunday: 24/7</p>
-					<p>Emergency Service Available</p>
-				</div>
-				<div>
-					<h3 class="text-accent-light text-xl font-semibold mb-4">Service Area</h3>
-					<p>Los Angeles and surrounding areas</p>
-				</div>
-			</div>
-			<div class="text-center mt-8 pt-4 border-t border-white/10">
-				<p>&copy; 2024 LA Appliance Repair. All rights reserved.</p>
+		<footer class="bg-[#0f1117] border-t border-purple-500/20 text-white py-10 mt-auto">
+			<div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+				<a href={phoneHref} class="inline-block text-2xl font-bold text-purple-400 hover:text-purple-300">
+					📞 {phone}
+				</a>
+				<p class="text-gray-400">Same-Day Appliance Repair · Los Angeles & Surrounding Areas</p>
+				<p class="text-sm text-gray-500">&copy; {new Date().getFullYear()} {businessName}. All rights reserved.</p>
 			</div>
 		</footer>
 	</body>
