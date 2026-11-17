@@ -15,6 +15,13 @@ const phone = '(949) 989-4980';
 const phoneHref = 'tel:+19499894980';
 const businessName = 'Same Day Appliance Repair';
 const siteUrl = 'https://appliancerepairdaily.com';
+
+// Structured data (JSON-LD). Only facts already published on the site are used here.
+const orgId = siteUrl + '/#organization';
+const pageUrl = new URL(Astro.url.pathname, siteUrl + '/').href;
+const serviceAreas = ['Los Angeles', 'Santa Monica', 'Beverly Hills', 'Pasadena', 'Burbank', 'Glendale', 'Long Beach'];
+const serviceNames = ['Refrigerator Repair', 'Washer Repair', 'Dryer Repair', 'Dishwasher Repair', 'Oven & Stove Repair', 'Microwave Repair'];
+const slug = (s: string) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
 <!doctype html>
@@ -41,29 +48,82 @@ const siteUrl = 'https://appliancerepairdaily.com';
 
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
-			"@type": "LocalBusiness",
-			"@id": siteUrl + "#business",
-			"name": businessName,
-			"image": siteUrl + "/favicon.svg",
-			"url": siteUrl,
-			"telephone": "+19499894980",
-			"priceRange": "$$",
-			"address": {
-				"@type": "PostalAddress",
-				"addressLocality": "Los Angeles",
-				"addressRegion": "CA",
-				"addressCountry": "US"
-			},
-			"areaServed": [
-				"Los Angeles", "Santa Monica", "Beverly Hills", "Pasadena", "Burbank", "Glendale", "Long Beach"
-			],
-			"openingHoursSpecification": [{
-				"@type": "OpeningHoursSpecification",
-				"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-				"opens": "07:00",
-				"closes": "21:00"
-			}],
-			"sameAs": []
+			"@graph": [
+				{
+					"@type": "LocalBusiness",
+					"@id": orgId,
+					"name": businessName,
+					"url": siteUrl + "/",
+					"logo": {
+						"@type": "ImageObject",
+						"@id": siteUrl + "/#logo",
+						"url": siteUrl + "/favicon.svg",
+						"contentUrl": siteUrl + "/favicon.svg",
+						"caption": businessName
+					},
+					"image": { "@id": siteUrl + "/#logo" },
+					"description": 'Same-day appliance repair in Los Angeles: refrigerators, washers, dryers, dishwashers, ovens, stoves and microwaves. Licensed & insured technicians, upfront pricing, warranty on repairs.',
+					"telephone": "+1-949-989-4980",
+					"priceRange": "$$",
+					"address": {
+						"@type": "PostalAddress",
+						"addressLocality": "Los Angeles",
+						"addressRegion": "CA",
+						"addressCountry": "US"
+					},
+					"areaServed": serviceAreas.map((name) => ({ "@type": "City", "name": name + ", CA" })),
+					"contactPoint": {
+						"@type": "ContactPoint",
+						"telephone": "+1-949-989-4980",
+						"contactType": "customer service",
+						"areaServed": "US",
+						"availableLanguage": "en"
+					},
+					"openingHoursSpecification": [{
+						"@type": "OpeningHoursSpecification",
+						"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+						"opens": "07:00",
+						"closes": "21:00"
+					}],
+					"knowsAbout": serviceNames,
+					"hasOfferCatalog": {
+						"@type": "OfferCatalog",
+						"name": "Appliance Repair Services",
+						"itemListElement": serviceNames.map((name) => ({
+							"@type": "Offer",
+							"itemOffered": { "@id": siteUrl + "/#service-" + slug(name) }
+						}))
+					}
+				},
+				{
+					"@type": "WebSite",
+					"@id": siteUrl + "/#website",
+					"url": siteUrl + "/",
+					"name": businessName,
+					"inLanguage": "en-US",
+					"publisher": { "@id": orgId }
+				},
+				{
+					"@type": "WebPage",
+					"@id": pageUrl + "#webpage",
+					"url": pageUrl,
+					"name": title,
+					"description": description,
+					"inLanguage": "en-US",
+					"isPartOf": { "@id": siteUrl + "/#website" },
+					"about": { "@id": orgId },
+					"publisher": { "@id": orgId }
+				},
+				...serviceNames.map((name) => ({
+					"@type": "Service",
+					"@id": siteUrl + "/#service-" + slug(name),
+					"name": name,
+					"serviceType": name,
+					"provider": { "@id": orgId },
+					"areaServed": serviceAreas.map((city) => ({ "@type": "City", "name": city + ", CA" })),
+					"url": siteUrl + "/"
+				}))
+			]
 		})} />
 
 		<script src="https://analytics.ahrefs.com/analytics.js" data-key="s7QI57LsrItr4I9CZh+Vgw" async></script>
